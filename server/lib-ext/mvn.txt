@@ -1,0 +1,3 @@
+mvn install:install-file -DgroupId=org.beykery -DartifactId=jce -Dversion=1.0 -Dpackaging=jar -Dfile=jce.jar
+
+mvn install:install-file -DgroupId=org.beykery -DartifactId=rt -Dversion=1.0 -Dpackaging=jar -Dfile=rt.jar

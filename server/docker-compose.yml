@@ -1,0 +1,38 @@
+version: '2'
+services:
+
+  eureka:
+    image: crowd/eureka:latest
+    ports:
+      - "7000:8080"
+    volumes:
+      - d:/data/docker/crowd/eureka/logs:/logs
+    networks:
+      - crowd
+      
+  config:
+    image: crowd/config:latest
+    ports:
+      - "7008:8080"
+    volumes:
+      - d:/data/docker/crowd/config/logs:/logs
+      #- d:/data/docker/crowd/config/config-repo:/config-repo
+    depends_on:
+      - eureka
+    networks:
+      - crowd
+
+  gateway:
+    image: crowd/gateway:latest
+    ports:
+      - "7001:8080"
+    volumes:
+      - d:/data/docker/crowd/gateway/logs:/logs
+    depends_on:
+      - config
+    networks:
+      - crowd
+
+
+networks:
+  crowd:

@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: eureka
+    
+# 安全认证配置
+security:  
+  basic:  
+    enabled: true  
+  user:  
+    name: beykery  # 用户名  
+    password: 123456   # 用户密码 
+    
+eureka:
+  instance:
+    hostname: localhost
+    leaseRenewalIntervalInSeconds: 15
+  server:
+    enableSelfPreservation: false
+    evictionIntervalTimerInMs: 8000 
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:  
+      defaultZone: http://${security.user.name}:${security.user.password}@${eureka.instance.hostname}:${server.port}/eureka  #安全的注册地址
+      
+logging:
+  config: classpath:logback.xml
+
+
+

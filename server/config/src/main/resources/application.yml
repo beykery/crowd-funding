@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+eureka:
+  instance:
+    hostname: config
+    prefer-ip-address: false  #在docker环境下，这个ip是bridge下的，禁掉吧，使用hostname
+    instance-id: ${eureka.instance.hostname}:${server.port} # 定义id
+    metadata-map:
+      user.name: ${security.user.name}
+      user.password: ${security.user.password}
+  client:
+    serviceUrl:
+      defaultZone: http://beykery:123456@eureka:8080/eureka  #连接eureka的地址
+
+spring:
+  cloud:
+    config:
+      server:
+        native:
+          searchLocations: ./config-repo
+  profiles:
+    active: native
+    
+security:    # 安全配置
+  user:
+    name: config
+    password: 123456
+    

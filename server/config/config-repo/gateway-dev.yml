@@ -1,0 +1,51 @@
+debug: true
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+    
+eureka:
+  instance:
+    hostname: gateway
+    prefer-ip-address: false
+    ip-address: 10.50.60.4
+    instance-id: ${eureka.instance.hostname}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://beykery:123456@eureka:8080/eureka
+      
+zuul:
+  add-host-header: true
+  sensitive-headers:
+  ignored-services: '*'
+  routes:           #目前只有一个服务
+
+    crowd:
+      path: /crowd/**
+      serviceId: crowd
+      strip-prefix: false
+
+      
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+    multipart:
+      enabled: true
+      location: /data/uploadTmp
+      file-size-threshold: 0
+      max-file-size: 512Mb
+      max-request-size: 512Mb
+      
+#hystrix调用方法的超时时间，默认是1000毫秒
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 50000
+logging:
+  config: classpath:logback.xml

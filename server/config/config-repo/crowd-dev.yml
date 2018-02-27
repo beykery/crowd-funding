@@ -1,0 +1,22 @@
+debug: true
+server:
+  port: 8080
+  context-path: /crowd
+
+spring:
+  http:
+    multipart:
+      enabled: true
+      location: /data/uploadTmp
+      file-size-threshold: 0
+      max-file-size: 512Mb
+      max-request-size: 512Mb
+  security:
+    enabled: false
+
+security:
+  basic:
+    enabled: false
+
+logging:
+  config: classpath:logback.xml
